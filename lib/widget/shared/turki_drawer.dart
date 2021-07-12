@@ -67,7 +67,7 @@ class TurkiDrawer extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(60.0),
-                child: Text('V1.2.0'),
+                child: Text('V1.4.0'),
               ),
             ],
           )

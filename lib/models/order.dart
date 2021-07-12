@@ -25,6 +25,8 @@ class Order {
   DeliveryAddress? deliveryAddress;
   OrderStatus? orderStatus;
   Payment? payment;
+  List<FoodOrders>? foodOrders;
+
   // FoodOrders? foodOrders;
   Order(
       {this.id,
@@ -33,7 +35,7 @@ class Order {
       this.quantity,
       this.user,
       this.payment,
-      // this.foodOrders,
+      this.foodOrders,
       this.deliveryAddress,
       this.orderStatus});
 
@@ -50,6 +52,12 @@ class Order {
     // foodOrders = json['food_orders'] != null
     //     ? new FoodOrders.fromJson(json['food_orders'])
     //     : null;
+    if (json['food_orders'] != null) {
+      foodOrders = <FoodOrders>[];
+      json['food_orders'].forEach((v) {
+        foodOrders?.add(FoodOrders.fromJson(v));
+      });
+    }
     deliveryAddress = json['delivery_address'] != null
         ? new DeliveryAddress.fromJson(json['delivery_address'])
         : DeliveryAddress(
@@ -57,6 +65,21 @@ class Order {
     orderStatus = json['order_status'] != null
         ? new OrderStatus.fromJson(json['order_status'])
         : null;
+  }
+}
+
+class FoodOrders {
+  int? id;
+  int? quantity;
+
+  FoodOrders({
+    this.id,
+    this.quantity,
+  });
+
+  FoodOrders.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    quantity = json['quantity'] ?? 0;
   }
 }
 

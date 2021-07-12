@@ -14,10 +14,12 @@ class OrderDetailsContainer extends StatelessWidget {
   final Order order;
   final double distance;
   final int status;
+  final int quantity;
   final double total;
   const OrderDetailsContainer(
       {required this.order,
       required this.distance,
+      required this.quantity,
       required this.status,
       required this.total});
 
@@ -80,11 +82,7 @@ class OrderDetailsContainer extends StatelessWidget {
                     title:
                         '${total >= 0 ? total : 0} ${AppLocalizations.of(context)!.tr('sr')}',
                     icon: RA7ICONS.cash),
-                Visibility(
-                  visible: order.quantity != null,
-                  child: OrderDetailsRow(
-                      title: order.quantity.toString(), icon: RA7ICONS.box),
-                ),
+                OrderDetailsRow(title: quantity.toString(), icon: RA7ICONS.box),
                 OrderDetailsRow(
                     fontColor:
                         GetSColorByStatus().statusColor(order.orderStatus!.id!),

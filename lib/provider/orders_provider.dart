@@ -100,6 +100,20 @@ class OrdersProvider with ChangeNotifier {
     return total;
   }
 
+  int getQuantity() {
+    print('getQuantity');
+    int quantity = 0;
+    for (int i = 0; i < _ordersData!.order![index].foodOrders!.length; i++) {
+      print(_ordersData!.order![index].foodOrders![i].quantity!);
+      print('www');
+
+      quantity += _ordersData!.order![index].foodOrders![i].quantity!;
+    }
+    print(quantity);
+
+    return quantity == 0 ? 1 : quantity;
+  }
+
   void clear() {
     _isLoading = true;
     _retry = false;

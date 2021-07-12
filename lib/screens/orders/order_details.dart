@@ -43,6 +43,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     _orders.ordersData!.order![_orders.index].orderStatus!.id!,
               ),
               OrderDetailsContainer(
+                  quantity: _orders.getQuantity(),
                   total: _orders.getTotal(),
                   status: _orders
                       .ordersData!.order![_orders.index].orderStatus!.id!,
