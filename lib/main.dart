@@ -11,6 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences _preferences = await SharedPreferences.getInstance();
   String? _languageCode = _preferences.getString('language_code');
+  bool? _isAuth = _preferences.getBool('isAuth') ?? false;
   Locale _locale = Locale(_languageCode ?? 'ar');
   runApp(MultiProvider(
       providers: [
@@ -23,5 +24,6 @@ void main() async {
       ],
       child: MyApp(
         locale: _locale,
+        isAuth: _isAuth,
       )));
 }

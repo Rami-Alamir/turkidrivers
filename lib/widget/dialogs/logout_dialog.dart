@@ -1,3 +1,4 @@
+import 'package:almaraa_drivers/provider/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:almaraa_drivers/provider/orders_provider.dart';
@@ -22,10 +23,12 @@ class LogOutDialog extends StatelessWidget {
           ),
           onPressed: () {
             final _orders = Provider.of<OrdersProvider>(context, listen: false);
+            final _auth = Provider.of<Auth>(context, listen: false);
             _orders.clear();
             Navigator.pop(context);
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil("/", (Route<dynamic> route) => false);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                "/Login", (Route<dynamic> route) => false);
+            _auth.logout();
           },
         )
       ],

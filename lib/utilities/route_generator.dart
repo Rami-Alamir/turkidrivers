@@ -8,7 +8,7 @@ class RouteGenerator {
     // Getting arguments passed in while calling Navigator.pushNamed
     final args = settings.arguments;
     switch (settings.name) {
-      case '/':
+      case '/Login':
         return MaterialPageRoute(builder: (_) => Login());
       case '/Home':
         return MaterialPageRoute(builder: (_) => Home());

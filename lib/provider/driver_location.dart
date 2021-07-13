@@ -18,8 +18,8 @@ class DriverLocationProvider with ChangeNotifier {
   void getCurrentLocation() async {
     print('get location');
     try {
-      _locationData = await Location().getLocation();
       if (updateLocation) {
+        _locationData = await Location().getLocation();
         updateDriverLocation();
         Timer(Duration(seconds: 60), () {
           updateLocation = true;
@@ -47,7 +47,6 @@ class DriverLocationProvider with ChangeNotifier {
   }
 
   Future<void> updateDriverLocation() async {
-    print('rami');
     updateLocation = false;
     int statusCode = 404;
     try {

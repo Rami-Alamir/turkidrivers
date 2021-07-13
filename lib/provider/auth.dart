@@ -21,6 +21,16 @@ class Auth with ChangeNotifier {
   BuildContext? _dialogContext;
   GlobalKey<FormState> get loginFormKey => _loginFormKey;
 
+  void initUser() async {
+    await _initPrefs();
+    _user = User(
+        success: true,
+        data: Data(
+            id: _prefs!.getInt('id')!,
+            email: _prefs!.getString('email')!,
+            name: _prefs!.getString('name')!));
+  }
+
   void login(BuildContext context) {
     this.context = context;
     if (!_loginFormKey.currentState!.validate())
@@ -41,6 +51,11 @@ class Auth with ChangeNotifier {
         "email": userNameController.text.trim(),
         "password": passwordController.text.trim()
       });
+      await _initPrefs();
+      _prefs!.setInt('id', user.data.id);
+      _prefs!.setString('name', user.data.name);
+      _prefs!.setString('email', user.data.email);
+      _prefs!.setBool('isAuth', true);
       Navigator.of(_dialogContext!).pop();
       passwordController.clear();
       Navigator.of(context!)
@@ -79,6 +94,14 @@ class Auth with ChangeNotifier {
             return LocationDialog();
           });
     }
+  }
+
+  void logout() async {
+    await _initPrefs();
+    _prefs!.remove('id');
+    _prefs!.remove('name');
+    _prefs!.remove('email');
+    _prefs!.remove('isAuth');
   }
 
   // init Shared Preferences

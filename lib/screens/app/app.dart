@@ -1,3 +1,4 @@
+import 'package:almaraa_drivers/provider/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ import 'package:almaraa_drivers/utilities/route_generator.dart';
 //App Widget tree
 class MyApp extends StatefulWidget {
   final locale;
-  const MyApp({@required this.locale});
+  final bool isAuth;
+  const MyApp({required this.locale, required this.isAuth});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -20,7 +22,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     final language = Provider.of<AppLanguage>(context, listen: false);
+    final auth = Provider.of<Auth>(context, listen: false);
     language.appLocale = widget.locale;
+    if (widget.isAuth) auth.initUser();
     super.initState();
   }
 
@@ -51,7 +55,7 @@ class _MyAppState extends State<MyApp> {
           Locale('en', ''),
         ],
         onGenerateRoute: RouteGenerator.generateRoute,
-        initialRoute: '/',
+        initialRoute: widget.isAuth ? '/Home' : '/Login',
       );
     });
   }
