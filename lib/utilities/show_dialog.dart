@@ -1,4 +1,3 @@
-import 'package:almaraa_drivers/widget/dialogs/location_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:almaraa_drivers/widget/dialogs/change_status_dialog.dart';
 import 'package:almaraa_drivers/widget/dialogs/confirm_dialog.dart';
@@ -21,16 +20,6 @@ class ShowConfirmDialog {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return LogOutDialog();
-      },
-    );
-  }
-
-  Future locationDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return LocationDialog();
       },
     );
   }

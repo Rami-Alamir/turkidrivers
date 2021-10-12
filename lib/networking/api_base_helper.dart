@@ -19,12 +19,8 @@ class ApiBaseHelper {
         uri,
         //       headers: headers
       );
-      print(uri);
-      print(response.body.toString());
       responseJson = _returnResponse(response);
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
     return responseJson;
   }
 
@@ -37,9 +33,7 @@ class ApiBaseHelper {
         //headers: headers
       );
       responseJson = _returnResponse(response);
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
     return responseJson;
   }
 
@@ -48,8 +42,19 @@ class ApiBaseHelper {
     int statusCode = 404;
     try {
       var response = await http.post(uri, body: body, headers: headers);
-      print("response:   " + response.body.toString());
       statusCode = response.statusCode;
+    } catch (e) {}
+    return statusCode;
+  }
+
+  Future<int> put(String url, var body) async {
+    print('ccc');
+    var uri = Uri.https(_baseUrl, url);
+    int statusCode = 404;
+    try {
+      var response = await http.put(uri, body: body, headers: headers);
+      statusCode = response.statusCode;
+      print(statusCode.toString());
     } catch (e) {
       print(e.toString());
     }
@@ -61,8 +66,6 @@ class ApiBaseHelper {
       case 200:
       case 201:
         var responseJson = json.decode(response.body.toString());
-        print(response.body.toString());
-        print(responseJson.toString());
         return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
@@ -72,7 +75,7 @@ class ApiBaseHelper {
       case 500:
       default:
         throw FetchDataException(
-            'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+            'Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
     }
   }
 }

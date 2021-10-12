@@ -1,21 +1,26 @@
+import 'package:almaraa_drivers/utilities/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:almaraa_drivers/models/order.dart';
 import 'package:almaraa_drivers/repository/orders_repository.dart';
-import 'package:almaraa_drivers/utilities/app_localizations.dart';
 
 class OrdersProvider with ChangeNotifier {
+  TextEditingController noteController = TextEditingController();
+
   bool init = true;
   bool _isLoading = true;
   bool _retry = false;
-  OrderData? _ordersData;
+  Orders? _ordersData;
   bool get isLoading => _isLoading;
   bool get retry => _retry;
   late int _index;
   late int _orderId;
-  OrderData? get ordersData => _ordersData;
+  Orders? get ordersData => _ordersData;
   int _radioValue = -1;
   late BuildContext _context;
   int get radioValue => _radioValue;
+  int _remainingOrders = 0;
+
+  int get remainingOrders => _remainingOrders;
 
   set radioVal(int value) {
     _radioValue = value;
@@ -26,7 +31,7 @@ class OrdersProvider with ChangeNotifier {
 
   set setIndex(int value) {
     _index = value;
-    _orderId = _ordersData!.order![_index].id!;
+    _orderId = int.parse(_ordersData!.data![_index].salesOrderId!);
   }
 
   int get orderId => _orderId;
@@ -37,27 +42,60 @@ class OrdersProvider with ChangeNotifier {
     _context = context;
     try {
       _ordersData = await OrdersRepository().getOrdersList(userId);
+      getRemainingOrders();
     } catch (e) {
       _retry = true;
-      print('error:  ${e.toString()}');
+      print(e.toString());
     }
     _isLoading = false;
     notifyListeners();
   }
 
-  Future<void> changeOrderStatus() async {
+  int getRemainingOrders() {
+    _remainingOrders = 0;
+    for (int i = 0; i < _ordersData!.data!.length; i++) {
+      if (int.parse(_ordersData!.data![i].statusId!) == 14 ||
+          int.parse(_ordersData!.data![i].statusId!) == 6 ||
+          int.parse(_ordersData!.data![i].statusId!) == 16) {
+        continue;
+      } else {
+        _remainingOrders += 1;
+      }
+    }
+    return _remainingOrders;
+  }
+
+  Future<void> changeOrderStatus(String id, int status) async {
     int statusCode = 404;
     try {
-      statusCode = await OrdersRepository()
-          .changeOrdersStatus(orderId.toString(), _radioValue.toString());
+      if (status == 12)
+        statusCode = await OrdersRepository().changeOrdersStatus(
+            id, status.toString(),
+            notes: noteController.text);
+      else
+        statusCode =
+            await OrdersRepository().changeOrdersStatus(id, status.toString());
     } catch (e) {
+      print(e.toString());
       _retry = true;
-      print('error:  ${e.toString()}');
     }
     if (statusCode == 200) {
-      ordersData!.order![_index].orderStatus!.id = radioValue;
-      if (radioValue == 6 || radioValue == 11 || radioValue == 13)
-        ordersData!.remainingOrders = ordersData!.remainingOrders! - 1;
+      try {
+        print('${ordersData!.data![_index].salesOrderId} == $id}');
+        if (status == 6 || status == 14 || status == 16) _remainingOrders -= 1;
+        if (ordersData!.data![_index].salesOrderId == id)
+          ordersData!.data![_index].statusId = status.toString();
+        else {
+          print('else');
+          for (int i = 0; i < _ordersData!.data!.length; i++) {
+            if (ordersData!.data![i].salesOrderId == id) {
+              ordersData!.data![i].statusId = status.toString();
+              break;
+            }
+          }
+        }
+      } catch (e) {}
+
       notifyListeners();
       ScaffoldMessenger.of(_context).showSnackBar(SnackBar(
           content: Text(
@@ -77,40 +115,34 @@ class OrdersProvider with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     await getOrdersData(context: _context, userId: userId);
-  } // re-init orders data
-
-  Future<void> sortOrdersList() async {
-    try {
-      if (_ordersData?.order != null)
-        _ordersData?.order!.sort((a, b) => a.deliveryAddress!.distance!
-            .compareTo(b.deliveryAddress!.distance!));
-    } catch (e) {
-      print("rami ${e.toString()}");
-    }
   }
 
+  // sort order by distance between driver and clients
+  // Future<void> sortOrdersList() async {
+  //   // try {
+  //   // //   if (_ordersData?.order != null)
+  //   // //     _ordersData?.data!.sort((a, b) => a.deliveryAddress!.distance!
+  //   //         .compareTo(b.deliveryAddress!.distance!));
+  //   // } catch (e) {}
+  // }
+
+  //get order remaining balance
   double getTotal() {
-    print('getTotal');
     double total = 0.0;
-    total = ((_ordersData!.order![_index].payment?.price) ?? 0.0) -
-        ((_ordersData!.order![_index].payment?.paid) ?? 0.0) -
-        ((_ordersData!.order![_index].payment?.amountDisc) ?? 0.0) -
-        ((_ordersData!.order![_index].payment!.price!) *
-            (_ordersData!.order![_index].payment!.discount! / 100));
+    for (int i = 0; i < _ordersData!.data![index].fulfill!.length; i++)
+      total += _ordersData!.data![index].fulfill![i].remaining!;
     return total;
   }
 
   int getQuantity() {
-    print('getQuantity');
     int quantity = 0;
-    for (int i = 0; i < _ordersData!.order![index].foodOrders!.length; i++) {
-      print(_ordersData!.order![index].foodOrders![i].quantity!);
-      print('www');
-
-      quantity += _ordersData!.order![index].foodOrders![i].quantity!;
+    for (int i = 0; i < _ordersData!.data![index].fulfill!.length; i++) {
+      for (int j = 0;
+          j < _ordersData!.data![index].fulfill![i].items!.length;
+          j++)
+        quantity +=
+            _ordersData!.data![index].fulfill![i].items![j].boxesNumber!;
     }
-    print(quantity);
-
     return quantity == 0 ? 1 : quantity;
   }
 

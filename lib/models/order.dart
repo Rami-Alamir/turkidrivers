@@ -1,185 +1,112 @@
-class OrderData {
-  List<Order>? order;
-  int? orderCount;
-  int? remainingOrders;
-  OrderData({this.order, this.orderCount, this.remainingOrders});
+class Orders {
+  List<Order>? data;
 
-  OrderData.fromJson(Map<String, dynamic> json) {
-    if (json['order'] != null) {
-      order = <Order>[];
-      json['order'].forEach((v) {
-        order?.add(new Order.fromJson(v));
+  Orders({this.data});
+
+  Orders.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <Order>[];
+      json['data'].forEach((v) {
+        data!.add(new Order.fromJson(v));
       });
     }
-    orderCount = json['Order Count'];
-    remainingOrders = json['Delivery in progress'];
   }
 }
 
 class Order {
-  int? id;
-  int? orderTime;
-  double? total;
-  int? quantity;
-  User? user;
-  DeliveryAddress? deliveryAddress;
-  OrderStatus? orderStatus;
-  Payment? payment;
-  List<FoodOrders>? foodOrders;
+  String? salesOrderId;
+  String? phone;
+  String? phone2;
+  String? customerName;
+  String? address;
+  String? description;
+  String? longitude;
+  String? latitude;
+  String? city;
+  String? cityId;
+  String? downPayment;
+  String? deliveryDate;
+  String? deliveryTime;
+  String? status;
+  String? statusId;
+  String? notes;
+  List<Fulfill>? fulfill;
 
-  // FoodOrders? foodOrders;
   Order(
-      {this.id,
-      this.orderTime,
-      this.total,
-      this.quantity,
-      this.user,
-      this.payment,
-      this.foodOrders,
-      this.deliveryAddress,
-      this.orderStatus});
+      {this.salesOrderId,
+      this.phone,
+      this.phone2,
+      this.customerName,
+      this.address,
+      this.description,
+      this.longitude,
+      this.latitude,
+      this.city,
+      this.cityId,
+      this.downPayment,
+      this.deliveryDate,
+      this.deliveryTime,
+      this.status,
+      this.statusId,
+      this.notes,
+      this.fulfill});
 
   Order.fromJson(Map<String, dynamic> json) {
-    print(json.toString());
-    id = json['id'];
-    orderTime = json['order_time'];
-    total = double.parse(
-        ((json['total'] ?? 0.0) == 0 ? 0.0 : json['total']).toString());
-    quantity = json['quantity'] ?? 0;
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    payment =
-        json['payment'] != null ? new Payment.fromJson(json['payment']) : null;
-    // foodOrders = json['food_orders'] != null
-    //     ? new FoodOrders.fromJson(json['food_orders'])
-    //     : null;
-    if (json['food_orders'] != null) {
-      foodOrders = <FoodOrders>[];
-      json['food_orders'].forEach((v) {
-        foodOrders?.add(FoodOrders.fromJson(v));
+    salesOrderId = json['salesOrderId'];
+    phone = json['phone'];
+    phone2 = json['phone2'] ?? "";
+    customerName = json['customername'] ?? "";
+    address = json['address'] ?? "";
+    description = json['description'] ?? "";
+    longitude = json['longitude'] ?? "0.0";
+    longitude = longitude?.length == 0 ? "0.0" : longitude;
+    latitude = json['latitude'] ?? "0.0";
+    latitude = latitude?.length == 0 ? "0.0" : latitude;
+
+    city = json['city'] ?? "" ?? "";
+    cityId = json['cityid'];
+    downPayment = json['down_payment'] ?? "";
+    deliveryDate = json['delivery_date'] ?? "";
+    deliveryTime = json['delivery_time'] ?? "";
+    status = json['status'] ?? "";
+    statusId = json['statusid'] ?? "";
+    notes = json['Notes'] ?? "";
+    if (json['fulfill'] != null) {
+      fulfill = <Fulfill>[];
+      json['fulfill'].forEach((v) {
+        fulfill!.add(new Fulfill.fromJson(v));
       });
     }
-    deliveryAddress = json['delivery_address'] != null
-        ? new DeliveryAddress.fromJson(json['delivery_address'])
-        : DeliveryAddress(
-            distance: 0.00, latitude: 0, longitude: 0, address: '');
-    orderStatus = json['order_status'] != null
-        ? new OrderStatus.fromJson(json['order_status'])
-        : null;
   }
 }
 
-class FoodOrders {
-  int? id;
-  int? quantity;
+class Fulfill {
+  double? remaining;
+  List<Items>? items;
 
-  FoodOrders({
-    this.id,
-    this.quantity,
-  });
+  Fulfill({this.remaining, this.items});
 
-  FoodOrders.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    quantity = json['quantity'] ?? 0;
+  Fulfill.fromJson(Map<String, dynamic> json) {
+    remaining = json['Remaining'] * 1.0;
+    if (json['items'] != null) {
+      items = <Items>[];
+      json['items'].forEach((v) {
+        items!.add(new Items.fromJson(v));
+      });
+    }
   }
 }
 
-class User {
-  String? name;
-  String? email;
+class Items {
+  String? item;
+  String? quantity;
+  int? boxesNumber;
 
-  User({
-    this.name,
-    this.email,
-  });
+  Items({this.item, this.quantity, this.boxesNumber});
 
-  User.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    email = json['email'];
+  Items.fromJson(Map<String, dynamic> json) {
+    item = json['item'];
+    quantity = json['quantity'];
+    boxesNumber = json['boxes_number'];
   }
 }
-
-class DeliveryAddress {
-  String? address;
-  double? latitude;
-  double? longitude;
-  double? distance;
-
-  DeliveryAddress({this.address, this.latitude, this.longitude, this.distance});
-
-  DeliveryAddress.fromJson(Map<String, dynamic> json) {
-    address = json['address'] ?? "";
-    // latitude = 24.74361792792893;
-    // longitude = 46.65843833594841;
-    latitude = (json['latitude'] ?? 1.0) == 0 ? 1.0 : json['latitude'] * 1.0;
-    longitude = (json['longitude'] ?? 1.0) == 0 ? 1.0 : json['longitude'] * 1.0;
-    distance = 0;
-  }
-}
-
-class OrderStatus {
-  int? id;
-
-  OrderStatus({
-    this.id,
-  });
-
-  OrderStatus.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-  }
-}
-
-class Payment {
-  double? price;
-  double? paid;
-  double? amountDisc;
-  double? discount;
-
-  Payment({
-    this.price,
-    this.paid,
-    this.amountDisc,
-    this.discount,
-  });
-
-  Payment.fromJson(Map<String, dynamic> json) {
-    price = (json['price'] ?? 0.0) * 1.0;
-    paid = (json['paid'] ?? 0.0) * 1.0;
-    amountDisc = (json['amount_disc'] ?? 0.0) * 1.0;
-    discount = (json['discount'] ?? 0.0) * 1.0;
-  }
-}
-//
-// class FoodOrders {
-//   FoodExtra? foodExtra;
-//
-//   FoodOrders({
-//     this.foodExtra,
-//   });
-//
-//   FoodOrders.fromJson(Map<String, dynamic> json) {
-//     foodExtra = json['food_extra'] != null
-//         ? new FoodExtra.fromJson(json['food_extra'])
-//         : null;
-//   }
-// }
-//
-// class FoodExtra {
-//   Extra? extra;
-//
-//   FoodExtra({this.extra});
-//
-//   FoodExtra.fromJson(Map<String, dynamic> json) {
-//     extra = json['extra'] != null ? new Extra.fromJson(json['extra']) : null;
-//   }
-// }
-//
-// class Extra {
-//   double? price;
-//
-//   Extra({
-//     this.price,
-//   });
-//   Extra.fromJson(Map<String, dynamic> json) {
-//     price = (json['price'] ?? 0.0) * 1.0;
-//   }
-// }

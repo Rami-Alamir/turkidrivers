@@ -1,0 +1,54 @@
+import 'package:almaraa_drivers/utilities/size_config.dart';
+import 'package:flutter/material.dart';
+import 'package:almaraa_drivers/utilities/app_localizations.dart';
+import 'package:almaraa_drivers/widget/timeline/dot_indicator.dart';
+
+import 'dashed_lin_connector.dart';
+import 'solid_line_connector.dart';
+
+class TimeLine9 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(25),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              DotIndicator(
+                borderColor: Theme.of(context).primaryColor,
+                fillColor: Theme.of(context).primaryColor,
+              ),
+              Container(
+                width: SizeConfig.screenWidth! * 0.7,
+                child: Text(AppLocalizations.of(context)!.tr('prepared'),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 16)),
+              )
+            ],
+          ),
+          DashedLineConnector(color: Colors.grey),
+          Row(
+            children: [
+              DotIndicator(
+                borderColor: Colors.grey,
+                fillColor: Colors.transparent,
+              ),
+              Text(
+                  AppLocalizations.of(context)!
+                      .tr('theـorderـwasـreceivedـslaughterhouse'),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3!
+                      .copyWith(fontSize: 16, color: Colors.grey))
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

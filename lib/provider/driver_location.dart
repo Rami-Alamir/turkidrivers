@@ -15,8 +15,8 @@ class DriverLocationProvider with ChangeNotifier {
     _driverId = value;
   }
 
+  // get driver location and update location in db
   void getCurrentLocation() async {
-    print('get location');
     try {
       if (updateLocation) {
         _locationData = await Location().getLocation();
@@ -24,7 +24,6 @@ class DriverLocationProvider with ChangeNotifier {
         Timer(Duration(seconds: 60), () {
           updateLocation = true;
           notifyListeners();
-          print('55555555');
         });
       }
     } catch (e) {
@@ -33,6 +32,7 @@ class DriverLocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  //used to get distance between driver and client
   double calculateDistance(double latitude, double longitude) {
     double distance = -1.000;
     getCurrentLocation();
@@ -40,26 +40,17 @@ class DriverLocationProvider with ChangeNotifier {
       distance = Geolocator.distanceBetween(_locationData.latitude!,
               _locationData.longitude!, latitude, longitude) /
           1000;
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
     return distance;
   }
 
   Future<void> updateDriverLocation() async {
     updateLocation = false;
-    int statusCode = 404;
     try {
-      statusCode = await TrackingRepository().updateDriverLocation(
+      await TrackingRepository().updateDriverLocation(
           '$_driverId',
           _locationData.latitude.toString(),
           _locationData.longitude.toString());
-    } catch (e) {
-      print('error:  ${e.toString()}');
-    }
-    if (statusCode == 200) {
-      print('200');
-    } else
-      print('500');
+    } catch (e) {}
   }
 }

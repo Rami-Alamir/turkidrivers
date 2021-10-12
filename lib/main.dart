@@ -1,3 +1,4 @@
+import 'package:almaraa_drivers/provider/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,19 +12,25 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences _preferences = await SharedPreferences.getInstance();
   String? _languageCode = _preferences.getString('language_code');
-  bool? _isAuth = _preferences.getBool('isAuth') ?? false;
+  bool? _isAuth = (_preferences.getBool('isAuth') ?? false) &&
+      (_preferences.getInt('integrateId') != null);
+
   Locale _locale = Locale(_languageCode ?? 'ar');
+  bool theme = _preferences.getBool('theme') ?? true;
+
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<Auth>(create: (context) => Auth()),
         ChangeNotifierProvider<DriverLocationProvider>(
             create: (context) => DriverLocationProvider()),
         ChangeNotifierProvider<AppLanguage>(create: (context) => AppLanguage()),
+        ChangeNotifierProvider<AppTheme>(create: (context) => AppTheme()),
         ChangeNotifierProvider<OrdersProvider>(
             create: (context) => OrdersProvider()),
       ],
       child: MyApp(
         locale: _locale,
         isAuth: _isAuth,
+        theme: theme,
       )));
 }

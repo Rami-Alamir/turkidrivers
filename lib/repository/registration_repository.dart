@@ -7,6 +7,7 @@ class RegistrationRepository {
   // login
   Future<User> login(var body) async {
     final response = await _helper.post("/system/api/driver/login", body);
+    print(response.toString());
     return User.fromJson(response);
   }
 }

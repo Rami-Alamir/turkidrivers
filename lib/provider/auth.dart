@@ -1,4 +1,3 @@
-import 'package:almaraa_drivers/widget/dialogs/location_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:almaraa_drivers/models/user.dart';
 import 'package:almaraa_drivers/repository/registration_repository.dart';
@@ -13,14 +12,13 @@ class Auth with ChangeNotifier {
   User get user => _user;
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  //for test
-
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   BuildContext? context;
 
   BuildContext? _dialogContext;
   GlobalKey<FormState> get loginFormKey => _loginFormKey;
 
+  // init user data
   void initUser() async {
     await _initPrefs();
     _user = User(
@@ -28,7 +26,8 @@ class Auth with ChangeNotifier {
         data: Data(
             id: _prefs!.getInt('id')!,
             email: _prefs!.getString('email')!,
-            name: _prefs!.getString('name')!));
+            name: _prefs!.getString('name')!,
+            integrateId: _prefs!.getInt('integrateId')!));
   }
 
   void login(BuildContext context) {
@@ -53,6 +52,7 @@ class Auth with ChangeNotifier {
       });
       await _initPrefs();
       _prefs!.setInt('id', user.data.id);
+      _prefs!.setInt('integrateId', user.data.integrateId);
       _prefs!.setString('name', user.data.name);
       _prefs!.setString('email', user.data.email);
       _prefs!.setBool('isAuth', true);
@@ -67,7 +67,6 @@ class Auth with ChangeNotifier {
         AppLocalizations.of(context!)!.tr('Incorrect_email_password'),
         textAlign: TextAlign.center,
       )));
-      print('error:   ${e.toString()}');
     }
   }
 
@@ -81,24 +80,10 @@ class Auth with ChangeNotifier {
         });
   }
 
-  void showLocationDialog(BuildContext context) async {
-    await _initPrefs();
-    bool? _isFirstUse = _prefs?.getBool('isFirstUse');
-    if (_isFirstUse ?? true) {
-      _prefs?.setBool('isFirstUse', false);
-      showDialog(
-          context: context,
-          barrierDismissible: true,
-          builder: (BuildContext context) {
-            _dialogContext = context;
-            return LocationDialog();
-          });
-    }
-  }
-
   void logout() async {
     await _initPrefs();
     _prefs!.remove('id');
+    _prefs!.remove('integrateId');
     _prefs!.remove('name');
     _prefs!.remove('email');
     _prefs!.remove('isAuth');

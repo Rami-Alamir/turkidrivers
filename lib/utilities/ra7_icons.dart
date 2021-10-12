@@ -6,6 +6,8 @@ class RA7ICONS {
   static const _kFontFam = 'RA7ICONS';
   static const String? _kFontPkg = null;
 
+  static const IconData sticky_notes =
+      IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData truck =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData home =

@@ -5,12 +5,11 @@ class GetSColorByStatus {
     switch (code) {
       case 6:
         return Colors.red;
-
-      case 13:
-      case 11:
+      case 14:
+      case 16:
         return Colors.green;
       default:
-        return Colors.black;
+        return Colors.grey;
     }
   }
 }
