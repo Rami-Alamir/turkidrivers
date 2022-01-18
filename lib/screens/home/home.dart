@@ -14,7 +14,6 @@ import 'package:almaraa_drivers/widget/shared/spinkit_indicator.dart';
 import 'package:almaraa_drivers/widget/shared/turki_app_bar.dart';
 import 'package:almaraa_drivers/widget/shared/turki_drawer.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -25,8 +24,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance!.addObserver(this);
-    // _checkPermission(_permission).then((_) => _checkingPermission = false);
     final _auth = Provider.of<Auth>(context, listen: false);
     final _orders = Provider.of<OrdersProvider>(context, listen: false);
     //get all orders
@@ -34,31 +31,10 @@ class _HomeState extends State<Home> {
         context: context, userId: _auth.user.data.integrateId.toString());
   }
 
-  final Permission _permission = Permission.location;
-  // bool _checkingPermission = false;
-
   final GlobalKey<ScaffoldState> _homeKey = GlobalKey<ScaffoldState>();
-
-  Future<void> _checkPermission(Permission permission) async {
-    try {
-      final status = await permission.request();
-      print(status.toString());
-      if (status == PermissionStatus.granted) {
-        print('Permission granted');
-      } else if (status == PermissionStatus.denied) {
-        print(
-            'Permission denied. Show a dialog and again ask for the permission');
-        print('Take the user to the settings page.');
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    PermissionStatus _status;
-
     final _orders = Provider.of<OrdersProvider>(context);
     final _driverLocation =
         Provider.of<DriverLocationProvider>(context, listen: true);
