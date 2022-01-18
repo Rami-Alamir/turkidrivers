@@ -42,10 +42,26 @@ class OrderCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '${order.salesOrderId}#',
-                    style: Theme.of(context).textTheme.headline1?.copyWith(
-                        fontSize: 18, color: Color.fromRGBO(132, 15, 15, 1)),
+                  Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.tr('order_id'),
+                        style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                              fontSize: 14,
+                            ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                        child: Text(
+                          '${order.salesOrderId}',
+                          style:
+                              Theme.of(context).textTheme.headline1?.copyWith(
+                                    fontSize: 16,
+                                  ),
+                        ),
+                      ),
+                    ],
                   ),
                   Visibility(
                     visible: double.parse(order.latitude!) > 1.0,
@@ -58,7 +74,8 @@ class OrderCard extends StatelessWidget {
               ),
             ),
             OrderCardRow(
-              title: order.customerName!,
+              title: 'customer_name',
+              subtitle: order.customerName!,
               icon: RA7ICONS.user2,
               fontColor: Theme.of(context).textTheme.headline1?.color!,
             ),
@@ -67,26 +84,37 @@ class OrderCard extends StatelessWidget {
                   ? (order.address != '' ? true : false)
                   : false,
               child: OrderCardRow(
+                  title: 'address',
                   fontColor: Theme.of(context).textTheme.headline1?.color!,
-                  title: order.address ?? "",
+                  subtitle: order.address ?? "",
                   icon: RA7ICONS.pin),
             ),
-            Visibility(
-              visible: (order.deliveryTime != null),
-              child: OrderCardRow(
-                  fontColor: Theme.of(context).textTheme.headline1?.color!,
-                  title: GetStrings().deliveryTime(order.deliveryTime!)! ==
-                          order.deliveryTime!
-                      ? order.deliveryTime!
-                      : AppLocalizations.of(context)!
-                          .tr(GetStrings().deliveryTime(order.deliveryTime!)!),
-                  icon: RA7ICONS.clock),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Visibility(
+                  visible: (order.deliveryTime != null),
+                  child: OrderCardRow(
+                      title: 'delivery_time',
+                      fontColor: Theme.of(context).textTheme.headline1?.color!,
+                      subtitle: GetStrings()
+                                  .deliveryTime(order.deliveryTime!)! ==
+                              order.deliveryTime!
+                          ? order.deliveryTime!
+                          : AppLocalizations.of(context)!.tr(
+                              GetStrings().deliveryTime(order.deliveryTime!)!),
+                      icon: RA7ICONS.clock),
+                ),
+                OrderCardRow(
+                    title: 'order_status',
+                    fontColor: GetSColorByStatus()
+                        .statusColor(int.parse(order.statusId!)),
+                    subtitle: status,
+                    color: GetSColorByStatus()
+                        .statusColor(int.parse(order.statusId!)),
+                    icon: RA7ICONS.truck),
+              ],
             ),
-            OrderCardRow(
-                fontColor:
-                    GetSColorByStatus().statusColor(int.parse(order.statusId!)),
-                title: status,
-                icon: RA7ICONS.truck),
           ],
         ),
       )),

@@ -62,4 +62,8 @@
   "change_order_status": "Change order status",  "light_mode": "Light mode",
   "night_mode": "night mode",
   "background_location" : "We use your location in the background to provide the necessary logistical support by tracking and locating the vehicle in addition to calculating the distance and time remaining to deliver the order to the customer.",
-  "status_updated_successfully": "Status updated successfully"}
+  "status_updated_successfully": "Status updated successfully",
+  "done" : "Done",
+  "order_id" : "Order id"
+
+}

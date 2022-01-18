@@ -1,19 +1,17 @@
+import 'package:almaraa_drivers/widget/home/driver_app_bar.dart';
 import 'package:almaraa_drivers/widget/shared/background.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:almaraa_drivers/provider/auth.dart';
 import 'package:almaraa_drivers/provider/driver_location.dart';
 import 'package:almaraa_drivers/provider/orders_provider.dart';
-import 'package:almaraa_drivers/utilities/app_localizations.dart';
 import 'package:almaraa_drivers/utilities/behavior.dart';
 import 'package:almaraa_drivers/utilities/size_config.dart';
 import 'package:almaraa_drivers/widget/home/order_card.dart';
 import 'package:almaraa_drivers/widget/home/number_of_orders.dart';
 import 'package:almaraa_drivers/widget/shared/retry.dart';
 import 'package:almaraa_drivers/widget/shared/spinkit_indicator.dart';
-import 'package:almaraa_drivers/widget/shared/turki_app_bar.dart';
 import 'package:almaraa_drivers/widget/shared/turki_drawer.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -45,8 +43,8 @@ class _HomeState extends State<Home> {
       key: _homeKey,
       extendBody: true,
       drawer: TurkiDrawer(),
-      appBar: TurkiAppBar(
-        back: false,
+      appBar: DriverAppBar(
+        user: _auth.user,
       ),
       body: Background(
         child: _orders.isLoading
@@ -62,6 +60,7 @@ class _HomeState extends State<Home> {
                     behavior: Behavior(),
                     child: RefreshIndicator(
                       color: Theme.of(context).primaryColor,
+                      backgroundColor: Theme.of(context).backgroundColor,
                       onRefresh: () async {
                         await _orders.getOrdersData(
                             context: context,
@@ -74,31 +73,6 @@ class _HomeState extends State<Home> {
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 10),
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 20.0),
-                              child: Text(
-                                '${AppLocalizations.of(context)!.tr('hala')} ${_auth.user.data.name}',
-                                style: Theme.of(context).textTheme.headline1,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 15.0),
-                                  child: QrImage(
-                                    data: _auth.user.data.id.toString(),
-                                    version: QrVersions.auto,
-                                    size: 150.0,
-                                    foregroundColor: Theme.of(context)
-                                        .textTheme
-                                        .headline1
-                                        ?.color,
-                                  ),
-                                ),
-                              ],
-                            ),
                             NumberOfOrders(
                                 orders: _orders.ordersData!.data!.length,
                                 remainingOrders: _orders.remainingOrders),

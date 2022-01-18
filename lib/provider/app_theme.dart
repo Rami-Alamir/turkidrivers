@@ -34,7 +34,6 @@ class AppTheme with ChangeNotifier {
 final darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: Color.fromRGBO(25, 25, 25, 1),
-    accentColor: Color.fromRGBO(25, 25, 25, 1),
     splashColor: Color.fromRGBO(25, 25, 25, 1),
     backgroundColor: Colors.black,
     iconTheme: IconThemeData(color: Colors.white),
@@ -42,7 +41,7 @@ final darkTheme = ThemeData(
     canvasColor: Colors.white,
     scaffoldBackgroundColor: Colors.black,
     textTheme: TextTheme(
-      subtitle1: TextStyle(fontSize: 28, color: Colors.white),
+      subtitle1: TextStyle(fontSize: 20, color: Colors.white),
       subtitle2: TextStyle(
           color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 16),
       headline1: TextStyle(
@@ -66,7 +65,7 @@ final darkTheme = ThemeData(
       headline6: TextStyle(
         fontWeight: FontWeight.normal,
         color: Colors.white,
-        fontSize: 14,
+        fontSize: 12,
       ),
     ),
     dialogTheme: DialogTheme(
@@ -82,26 +81,31 @@ final darkTheme = ThemeData(
       endIndent: 5,
     ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(primary: Color.fromRGBO(132, 15, 15, 1)),
+      style: TextButton.styleFrom(
+        primary: Color.fromRGBO(90, 4, 9, 1),
+      ),
     ),
     snackBarTheme: SnackBarThemeData(
         contentTextStyle: TextStyle(
       fontFamily: 'Tajawal',
       color: Colors.white,
-    )));
+    )),
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+        secondary: Color.fromRGBO(25, 25, 25, 1), brightness: Brightness.dark));
 
 final lightTheme = ThemeData(
     brightness: Brightness.light,
     splashColor: Colors.white,
-    iconTheme: IconThemeData(color: Color.fromRGBO(132, 15, 15, 1)),
-    primaryColor: Color.fromRGBO(132, 15, 15, 1),
-    accentColor: Colors.white,
+    iconTheme: IconThemeData(
+      color: Color.fromRGBO(90, 4, 9, 1),
+    ),
+    primaryColor: Color.fromRGBO(90, 4, 9, 1),
     fontFamily: 'Tajawal',
     canvasColor: Colors.white,
     backgroundColor: Color.fromRGBO(252, 252, 252, 1),
     scaffoldBackgroundColor: Color.fromRGBO(252, 252, 252, 1),
     textTheme: TextTheme(
-      subtitle1: TextStyle(fontSize: 28, color: Colors.white),
+      subtitle1: TextStyle(fontSize: 20, color: Colors.white),
       subtitle2: TextStyle(
           color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 16),
       headline1: TextStyle(
@@ -120,12 +124,12 @@ final lightTheme = ThemeData(
           color: Colors.black, fontWeight: FontWeight.w500, fontSize: 16),
       headline5: TextStyle(
           fontWeight: FontWeight.normal,
-          color: Color.fromRGBO(132, 15, 15, 1),
+          color: Color.fromRGBO(90, 4, 9, 1),
           fontSize: 12),
       headline6: TextStyle(
         fontWeight: FontWeight.normal,
         color: Colors.black,
-        fontSize: 14,
+        fontSize: 12,
       ),
     ),
     dialogTheme: DialogTheme(
@@ -141,10 +145,14 @@ final lightTheme = ThemeData(
       endIndent: 5,
     ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(primary: Color.fromRGBO(132, 15, 15, 1)),
+      style: TextButton.styleFrom(
+        primary: Color.fromRGBO(90, 4, 9, 1),
+      ),
     ),
     snackBarTheme: SnackBarThemeData(
         contentTextStyle: TextStyle(
       fontFamily: 'Tajawal',
       color: Colors.white,
-    )));
+    )),
+    colorScheme: ColorScheme.fromSwatch()
+        .copyWith(secondary: Colors.white, brightness: Brightness.light));
