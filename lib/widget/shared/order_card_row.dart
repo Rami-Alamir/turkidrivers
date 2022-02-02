@@ -8,10 +8,12 @@ class OrderCardRow extends StatelessWidget {
   final IconData icon;
   final Color? color;
   final Color? fontColor;
+  final double fontSize;
   const OrderCardRow(
       {required this.title,
       required this.subtitle,
       required this.icon,
+      this.fontSize = 12.0,
       this.color = const Color.fromRGBO(90, 4, 9, 1),
       required this.fontColor});
 
@@ -39,7 +41,9 @@ class OrderCardRow extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                 child: Icon(
                   icon,
-                  color: color,
+                  color: color == Color.fromRGBO(90, 4, 9, 1)
+                      ? Theme.of(context).primaryColor
+                      : color,
                 ),
               ),
               Container(
@@ -49,10 +53,10 @@ class OrderCardRow extends StatelessWidget {
                 child: Text(
                   subtitle,
                   overflow: TextOverflow.visible,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: fontColor, fontWeight: FontWeight.w700),
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                      color: fontColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: fontSize),
                 ),
               ),
             ],

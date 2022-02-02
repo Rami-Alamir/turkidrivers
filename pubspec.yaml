@@ -46,6 +46,7 @@ flutter:
   assets:
     - assets/language/ar.json
     - assets/language/en.json
+    - assets/images/map.png
     - assets/images/turki.png
     - assets/images/turki3.png
     - assets/images/logo.png

@@ -36,6 +36,7 @@ class QrDialog extends StatelessWidget {
               ),
               RoundedRectangleButton(
                 title: "done",
+                icon: Container(),
                 width: 200,
                 height: 50,
                 padding: EdgeInsets.only(top: 20),

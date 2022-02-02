@@ -32,8 +32,8 @@ class GetStrings {
         return 'problem_being_solved_and_delivered';
       case 13:
         return 'problem_solved';
-      // case 6:
-      //   return 'canceled';
+      case 6:
+        return 'canceled';
       case 10:
         return 'on_way';
 

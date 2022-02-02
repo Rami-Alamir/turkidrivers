@@ -1,4 +1,5 @@
 import 'package:almaraa_drivers/widget/home/driver_app_bar.dart';
+import 'package:almaraa_drivers/widget/home/location_card.dart';
 import 'package:almaraa_drivers/widget/shared/background.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -73,6 +74,9 @@ class _HomeState extends State<Home> {
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 10),
                           children: [
+                            LocationCard(
+                              location: '٢٥٤٧ شارع الدرع - الياسمين - الرياض ',
+                            ),
                             NumberOfOrders(
                                 orders: _orders.ordersData!.data!.length,
                                 remainingOrders: _orders.remainingOrders),

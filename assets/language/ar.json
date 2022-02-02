@@ -65,5 +65,10 @@
   "light_mode": "الوضع النهاري",
   "night_mode": "الوضع الليلي",
   "done" : "انهاء",
-  "order_id" : "رقم الطلب"
+  "order_id" : "رقم الطلب",
+  "amount_to_be_collected" : "المبلغ المطلوب تحصيله",
+"number_of_boxes" : "عدد الكراتين",
+  "notes": "ملاحظات",
+  "current_location": "الموقع الحالي",
+  "write_the_details_of_the_problem_here" : "اكتب تفاصيل المشكله هنا"
 }

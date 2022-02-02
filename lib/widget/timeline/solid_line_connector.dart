@@ -8,10 +8,10 @@ class SolidLineConnector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
         width: 3,
-        height: 50,
+        height: 55,
         color: color,
       ),
     );

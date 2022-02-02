@@ -64,6 +64,10 @@
   "background_location" : "We use your location in the background to provide the necessary logistical support by tracking and locating the vehicle in addition to calculating the distance and time remaining to deliver the order to the customer.",
   "status_updated_successfully": "Status updated successfully",
   "done" : "Done",
-  "order_id" : "Order id"
-
+  "order_id" : "Order id",
+  "amount_to_be_collected": "Amount to be collected",
+  "number_of_boxes": "Number of boxes",
+  "notes" : "Notes",
+  "current_location": "Current location",
+  "write_the_details_of_the_problem_here": "Write the details of the problem here"
 }

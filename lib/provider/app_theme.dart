@@ -91,7 +91,9 @@ final darkTheme = ThemeData(
       color: Colors.white,
     )),
     colorScheme: ColorScheme.fromSwatch().copyWith(
-        secondary: Color.fromRGBO(25, 25, 25, 1), brightness: Brightness.dark));
+        primaryVariant: Color.fromRGBO(28, 28, 28, 1),
+        secondary: Color.fromRGBO(25, 25, 25, 1),
+        brightness: Brightness.dark));
 
 final lightTheme = ThemeData(
     brightness: Brightness.light,
@@ -154,5 +156,7 @@ final lightTheme = ThemeData(
       fontFamily: 'Tajawal',
       color: Colors.white,
     )),
-    colorScheme: ColorScheme.fromSwatch()
-        .copyWith(secondary: Colors.white, brightness: Brightness.light));
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+        primaryVariant: Color.fromRGBO(240, 240, 240, 1),
+        secondary: Colors.white,
+        brightness: Brightness.light));

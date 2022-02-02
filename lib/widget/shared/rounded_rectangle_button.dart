@@ -6,6 +6,7 @@ class RoundedRectangleButton extends StatelessWidget {
   final Function onPressed;
   final double fontSize;
   final double width;
+  final Widget icon;
   final double height;
   final EdgeInsets padding;
   final FocusNode? focusNode;
@@ -13,6 +14,7 @@ class RoundedRectangleButton extends StatelessWidget {
   const RoundedRectangleButton(
       {required this.title,
       required this.onPressed,
+      required this.icon,
       this.fontSize = 20,
       this.width = 300,
       this.padding = const EdgeInsets.all(25.0),
@@ -38,16 +40,27 @@ class RoundedRectangleButton extends StatelessWidget {
             highlightColor: Colors.transparent,
             fillColor: Theme.of(context).primaryColor,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(const Radius.circular(10))),
+                borderRadius: BorderRadius.all(const Radius.circular(5))),
             child: Padding(
               padding: const EdgeInsets.only(top: 4.0),
-              child: Text(
-                '${AppLocalizations.of(context)!.tr(title!)}'.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontSize: fontSize, color: Colors.white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  icon,
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      '${AppLocalizations.of(context)!.tr(title!)}'
+                          .toUpperCase(),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3!
+                          .copyWith(fontSize: fontSize, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

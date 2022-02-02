@@ -11,7 +11,7 @@ class NumberOfOrders extends StatelessWidget {
 
   Widget data(BuildContext context, String title, int value) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.only(bottom: 10, top: 20),
       child: MainContainer(
           width: SizeConfig.screenWidth! * 0.45,
           height: 100,

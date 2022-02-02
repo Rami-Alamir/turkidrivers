@@ -19,6 +19,13 @@ class OrdersProvider with ChangeNotifier {
   late BuildContext _context;
   int get radioValue => _radioValue;
   int _remainingOrders = 0;
+  int _selected = -1;
+
+  int get selected => _selected;
+
+  set setSelected(int value) {
+    _selected = value;
+  }
 
   int get remainingOrders => _remainingOrders;
 

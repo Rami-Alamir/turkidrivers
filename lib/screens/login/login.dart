@@ -64,6 +64,7 @@ class _LoginState extends State<Login> {
                   padding: EdgeInsets.all(25),
                 ),
                 RoundedRectangleButton(
+                  icon: Container(),
                   onPressed: () {
                     _auth.login(context);
                   },

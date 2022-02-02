@@ -1,5 +1,6 @@
 import 'package:almaraa_drivers/models/user.dart';
 import 'package:almaraa_drivers/utilities/app_localizations.dart';
+import 'package:almaraa_drivers/utilities/ra7_icons.dart';
 import 'package:almaraa_drivers/widget/home/driver_qr.dart';
 import 'package:almaraa_drivers/widget/home/qr_dialog.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,9 @@ class DriverAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     IconButton(
                       icon: Icon(
-                        Icons.menu,
+                        AppLocalizations.of(context)!.locale == Locale('ar')
+                            ? RA7ICONS.menu_right
+                            : RA7ICONS.menu_left,
                         color: Colors.white,
                         size: 30,
                       ),

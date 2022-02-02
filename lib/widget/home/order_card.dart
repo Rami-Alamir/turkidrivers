@@ -7,7 +7,7 @@ import 'package:almaraa_drivers/utilities/get_color_by_status.dart';
 import 'package:almaraa_drivers/utilities/get_strings.dart';
 import 'package:almaraa_drivers/utilities/ra7_icons.dart';
 import 'package:almaraa_drivers/widget/shared/main_container.dart';
-import 'order_card_row.dart';
+import '../shared/order_card_row.dart';
 
 class OrderCard extends StatelessWidget {
   final Order order;
@@ -76,7 +76,7 @@ class OrderCard extends StatelessWidget {
             OrderCardRow(
               title: 'customer_name',
               subtitle: order.customerName!,
-              icon: RA7ICONS.user2,
+              icon: RA7ICONS.profile,
               fontColor: Theme.of(context).textTheme.headline1?.color!,
             ),
             Visibility(
@@ -87,7 +87,7 @@ class OrderCard extends StatelessWidget {
                   title: 'address',
                   fontColor: Theme.of(context).textTheme.headline1?.color!,
                   subtitle: order.address ?? "",
-                  icon: RA7ICONS.pin),
+                  icon: RA7ICONS.location),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +112,7 @@ class OrderCard extends StatelessWidget {
                     subtitle: status,
                     color: GetSColorByStatus()
                         .statusColor(int.parse(order.statusId!)),
-                    icon: RA7ICONS.truck),
+                    icon: RA7ICONS.truck_delivered),
               ],
             ),
           ],
