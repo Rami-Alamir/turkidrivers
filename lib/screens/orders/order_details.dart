@@ -4,12 +4,10 @@ import 'package:almaraa_drivers/widget/orders/support_container.dart';
 import 'package:almaraa_drivers/widget/orders/order_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:almaraa_drivers/provider/driver_location.dart';
 import 'package:almaraa_drivers/provider/orders_provider.dart';
 import 'package:almaraa_drivers/utilities/app_localizations.dart';
 import 'package:almaraa_drivers/utilities/behavior.dart';
 import 'package:almaraa_drivers/widget/shared/title_app_bar.dart';
-import 'package:almaraa_drivers/widget/shared/turki_drawer.dart';
 
 class OrderDetails extends StatefulWidget {
   @override
@@ -22,10 +20,7 @@ class _OrderDetailsState extends State<OrderDetails> {
     final _orders = Provider.of<OrdersProvider>(context);
     final double _total = _orders.getTotal();
 
-    final _driverLocation =
-        Provider.of<DriverLocationProvider>(context, listen: true);
     return Scaffold(
-      drawer: TurkiDrawer(),
       appBar: AppBarWithTitle(
         title: AppLocalizations.of(context)!.tr('order_details'),
       ),
@@ -53,7 +48,6 @@ class _OrderDetailsState extends State<OrderDetails> {
                 status: int.parse(
                     _orders.ordersData!.data![_orders.index].statusId!),
                 order: _orders.ordersData!.data![_orders.index],
-                distance: 0,
               ),
               SupportContainer(
                 order: _orders.ordersData!.data![_orders.index],

@@ -4,7 +4,6 @@ import 'app_exception.dart';
 
 class ApiBaseHelper {
   final String _baseUrl = 'turki.turkieshop.com';
-  // final String _baseUrl = 'turkidabayeh.com';
 
   Map<String, String> headers = {
     "Accept": "application/json",
@@ -17,7 +16,6 @@ class ApiBaseHelper {
     try {
       var response = await http.get(
         uri,
-        //       headers: headers
       );
       responseJson = _returnResponse(response);
     } catch (e) {}
@@ -48,7 +46,6 @@ class ApiBaseHelper {
   }
 
   Future<int> put(String url, var body) async {
-    print('ccc');
     var uri = Uri.https(_baseUrl, url);
     int statusCode = 404;
     try {

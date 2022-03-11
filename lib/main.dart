@@ -25,8 +25,10 @@ void main() async {
             create: (context) => DriverLocationProvider()),
         ChangeNotifierProvider<AppLanguage>(create: (context) => AppLanguage()),
         ChangeNotifierProvider<AppTheme>(create: (context) => AppTheme()),
-        ChangeNotifierProvider<OrdersProvider>(
-            create: (context) => OrdersProvider()),
+        ChangeNotifierProxyProvider<DriverLocationProvider, OrdersProvider>(
+            create: (context) => OrdersProvider(),
+            update: (_, location, orders) => orders!
+              ..updateLocationData(locationData: location.locationData)),
       ],
       child: MyApp(
         locale: _locale,

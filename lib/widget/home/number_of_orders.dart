@@ -13,7 +13,7 @@ class NumberOfOrders extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 10, top: 20),
       child: MainContainer(
-          width: SizeConfig.screenWidth! * 0.45,
+          width: SizeConfig.screenWidth! / 2 - 15,
           height: 100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

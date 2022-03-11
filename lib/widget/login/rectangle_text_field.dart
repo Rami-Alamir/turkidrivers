@@ -33,7 +33,7 @@ class RectangleTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
+                    color: Colors.grey.withOpacity(0.1),
                     blurRadius: 12,
                     offset: Offset(0, 4))
               ]),

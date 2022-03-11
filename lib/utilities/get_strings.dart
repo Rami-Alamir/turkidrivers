@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:geocoding/geocoding.dart';
+
 class GetStrings {
   String? deliveryTime(String time) {
     switch (time) {
@@ -36,13 +40,24 @@ class GetStrings {
         return 'canceled';
       case 10:
         return 'on_way';
-
-      // case 16:
-      //   return 'notـanswered';
-      // case 17:
-      //   return 'there_note';
       default:
         return 'order_status';
     }
+  }
+
+  String locationDescription(Placemark place) {
+    print("locationDescription");
+    print(place);
+    String description = "";
+    if (Platform.isAndroid) {
+      description =
+          "${place.postalCode}${(place.subLocality?.trim().length ?? 0) > 0 ? " - " : ""}${place.subLocality}${(place.thoroughfare?.trim().length ?? 0) > 0 ? " - " : ""}${place.thoroughfare}";
+      if (description.length == 0)
+        description =
+            "${place.administrativeArea}${(place.street?.trim().length ?? 0) > 0 ? " - " : ""}${place.street}";
+    } else
+      description =
+          "${place.street}${(place.subLocality?.length ?? 0) > 0 ? " - " : ""}${place.subLocality}";
+    return description;
   }
 }

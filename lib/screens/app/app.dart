@@ -2,6 +2,7 @@ import 'package:almaraa_drivers/provider/app_theme.dart';
 import 'package:almaraa_drivers/provider/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:provider/provider.dart';
 import 'package:almaraa_drivers/provider/app_language.dart';
 import 'package:almaraa_drivers/utilities/app_localizations.dart';
@@ -50,6 +51,9 @@ class _MyAppState extends State<MyApp> {
       return MaterialApp(
         theme: appTheme.getThemeData,
         debugShowCheckedModeBanner: false,
+        builder: (context, child) => Stack(
+          children: [child!, DropdownAlert()],
+        ),
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

@@ -3,7 +3,6 @@ import 'package:almaraa_drivers/widget/orders/status_option.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:almaraa_drivers/provider/orders_provider.dart';
-import 'package:almaraa_drivers/utilities/app_localizations.dart';
 import 'package:almaraa_drivers/utilities/size_config.dart';
 import 'package:almaraa_drivers/widget/shared/rounded_rectangle_button.dart';
 

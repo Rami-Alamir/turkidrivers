@@ -29,7 +29,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final _auth = Provider.of<Auth>(context);
-    //  _auth.showLocationDialog(context);
     return Scaffold(
       extendBody: true,
       body: GestureDetector(
@@ -42,11 +41,12 @@ class _LoginState extends State<Login> {
                 LoginHeader(),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: SizeConfig.screenHeight! / 20, bottom: 50.0),
+                      top: SizeConfig.screenHeight! / 20, bottom: 70.0),
                   child: Image.asset(
-                    'assets/images/turki.png',
+                    'assets/images/logo.png',
                     width: 150,
-                    height: 150,
+                    height: 180,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 RectangleTextField(

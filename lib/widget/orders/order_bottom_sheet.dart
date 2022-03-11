@@ -63,6 +63,7 @@ class OrderBottomSheet extends StatelessWidget {
                     Container(
                       width: 150,
                       child: OrderCardRow(
+                          maxWidth: SizeConfig.screenWidth! * 07,
                           title: 'amount_to_be_collected',
                           fontColor:
                               Theme.of(context).textTheme.headline1?.color!,

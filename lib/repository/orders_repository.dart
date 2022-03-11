@@ -10,7 +10,7 @@ class OrdersRepository {
     final queryParameters = {'driverid': driverId};
     final response =
         await _helper.get("/system/api/get-delivery-order", queryParameters);
-    print(response.toString());
+    // print(response.toString());
     Orders? order;
     try {
       order = Orders.fromJson(response);

@@ -1,6 +1,5 @@
 import 'package:almaraa_drivers/utilities/app_localizations.dart';
 import 'package:almaraa_drivers/utilities/size_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StatusOption extends StatelessWidget {

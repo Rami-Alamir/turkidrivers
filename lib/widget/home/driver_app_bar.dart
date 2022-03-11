@@ -4,6 +4,9 @@ import 'package:almaraa_drivers/utilities/ra7_icons.dart';
 import 'package:almaraa_drivers/widget/home/driver_qr.dart';
 import 'package:almaraa_drivers/widget/home/qr_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/orders_provider.dart';
 
 class DriverAppBar extends StatelessWidget implements PreferredSizeWidget {
   final User user;
@@ -35,11 +38,15 @@ class DriverAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: Colors.white,
                         size: 30,
                       ),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
+                      onPressed: () {
+                        final _orders =
+                            Provider.of<OrdersProvider>(context, listen: false);
+                        _orders.advancedDrawerController.showDrawer();
+                      },
                     ),
                     Image.asset(
-                      'assets/images/turki3.png',
-                      height: 30,
+                      'assets/images/almaraa_logo.png',
+                      height: 35,
                     ),
                     SizedBox(
                       width: 30,
@@ -56,8 +63,8 @@ class DriverAppBar extends StatelessWidget implements PreferredSizeWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png"),
+                            backgroundImage:
+                                AssetImage("assets/images/user.png"),
                             backgroundColor: Theme.of(context).backgroundColor,
                             radius: 25,
                           ),

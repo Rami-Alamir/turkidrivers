@@ -1,6 +1,5 @@
 import 'package:almaraa_drivers/utilities/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:almaraa_drivers/utilities/size_config.dart';
 
 class OrderCardRow extends StatelessWidget {
   final String title;
@@ -9,11 +8,13 @@ class OrderCardRow extends StatelessWidget {
   final Color? color;
   final Color? fontColor;
   final double fontSize;
+  final double maxWidth;
   const OrderCardRow(
       {required this.title,
       required this.subtitle,
       required this.icon,
-      this.fontSize = 12.0,
+      this.fontSize = 14.0,
+      required this.maxWidth,
       this.color = const Color.fromRGBO(90, 4, 9, 1),
       required this.fontColor});
 
@@ -29,7 +30,7 @@ class OrderCardRow extends StatelessWidget {
             child: Text(
               AppLocalizations.of(context)!.tr(title),
               style: Theme.of(context).textTheme.subtitle2?.copyWith(
-                    fontSize: 12,
+                    fontSize: 14,
                   ),
             ),
           ),
@@ -48,7 +49,7 @@ class OrderCardRow extends StatelessWidget {
               ),
               Container(
                 constraints: BoxConstraints(
-                  maxWidth: SizeConfig.screenWidth! * 0.7,
+                  maxWidth: maxWidth,
                 ),
                 child: Text(
                   subtitle,

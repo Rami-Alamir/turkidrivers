@@ -7,17 +7,18 @@ import 'package:almaraa_drivers/utilities/get_color_by_status.dart';
 import 'package:almaraa_drivers/utilities/get_strings.dart';
 import 'package:almaraa_drivers/utilities/ra7_icons.dart';
 import 'package:almaraa_drivers/widget/shared/main_container.dart';
+import '../../utilities/size_config.dart';
 import '../shared/order_card_row.dart';
 
 class OrderCard extends StatelessWidget {
   final Order order;
-  final double? distance;
   final int index;
 
-  const OrderCard(
-      {required this.order, required this.distance, required this.index});
+  const OrderCard({required this.order, required this.index});
   @override
   Widget build(BuildContext context) {
+    final double _maxWidth = SizeConfig.screenWidth! * 0.7;
+
     final String status =
         (GetStrings().orderStatus(int.parse(order.statusId!))!) ==
                 'order_status'
@@ -64,7 +65,7 @@ class OrderCard extends StatelessWidget {
                     ],
                   ),
                   Visibility(
-                    visible: double.parse(order.latitude!) > 1.0,
+                    visible: order.distance < 1000000.0,
                     child: Text(
                       getDistance(),
                       style: Theme.of(context).textTheme.subtitle2,
@@ -75,6 +76,7 @@ class OrderCard extends StatelessWidget {
             ),
             OrderCardRow(
               title: 'customer_name',
+              maxWidth: _maxWidth,
               subtitle: order.customerName!,
               icon: RA7ICONS.profile,
               fontColor: Theme.of(context).textTheme.headline1?.color!,
@@ -85,6 +87,7 @@ class OrderCard extends StatelessWidget {
                   : false,
               child: OrderCardRow(
                   title: 'address',
+                  maxWidth: _maxWidth,
                   fontColor: Theme.of(context).textTheme.headline1?.color!,
                   subtitle: order.address ?? "",
                   icon: RA7ICONS.location),
@@ -96,6 +99,7 @@ class OrderCard extends StatelessWidget {
                   visible: (order.deliveryTime != null),
                   child: OrderCardRow(
                       title: 'delivery_time',
+                      maxWidth: _maxWidth,
                       fontColor: Theme.of(context).textTheme.headline1?.color!,
                       subtitle: GetStrings()
                                   .deliveryTime(order.deliveryTime!)! ==
@@ -107,6 +111,7 @@ class OrderCard extends StatelessWidget {
                 ),
                 OrderCardRow(
                     title: 'order_status',
+                    maxWidth: _maxWidth,
                     fontColor: GetSColorByStatus()
                         .statusColor(int.parse(order.statusId!)),
                     subtitle: status,
@@ -126,8 +131,8 @@ class OrderCard extends StatelessWidget {
   }
 
   String getDistance() {
-    return distance! < 1.0
-        ? '${(formatDecimal(distance ?? 0.000))?.toString().length}m'
-        : '${formatDecimal(distance ?? 0.0)}km';
+    return order.distance < 1
+        ? '${(formatDecimal(order.distance))?.toString().length}m'
+        : '${formatDecimal(order.distance)}km';
   }
 }

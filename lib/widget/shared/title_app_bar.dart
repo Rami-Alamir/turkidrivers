@@ -9,7 +9,6 @@ class AppBarWithTitle extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: preferredSize,
       child: AppBar(
-        // backgroundColor: Colors.transparent,
         backgroundColor: Theme.of(context).splashColor,
         title: Text(title,
             style: Theme.of(context).textTheme.headline1!.copyWith(

@@ -1,3 +1,4 @@
+import 'package:almaraa_drivers/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:almaraa_drivers/utilities/app_localizations.dart';
 import 'package:almaraa_drivers/widget/shared/main_container.dart';
@@ -31,10 +32,16 @@ class LocationCard extends StatelessWidget {
                         .subtitle2!
                         .copyWith(fontSize: 14),
                   ),
-                  Text(
-                    location,
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontSize: 14, height: 2, fontWeight: FontWeight.bold),
+                  Container(
+                    padding: const EdgeInsets.only(top: 10),
+                    width: SizeConfig.screenWidth! - 120,
+                    child: Text(
+                      location,
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                          fontSize: 14,
+                          height: 1.4,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),

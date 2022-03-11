@@ -31,6 +31,7 @@ class LogOutDialog extends StatelessWidget {
             Navigator.of(context).pushNamedAndRemoveUntil(
                 "/Login", (Route<dynamic> route) => false);
             _auth.logout();
+            _orders.advancedDrawerController.hideDrawer();
           },
         )
       ],

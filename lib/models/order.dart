@@ -14,6 +14,7 @@ class Orders {
 }
 
 class Order {
+  double distance = 1000000.0;
   String? salesOrderId;
   String? phone;
   String? phone2;

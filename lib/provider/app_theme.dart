@@ -91,7 +91,7 @@ final darkTheme = ThemeData(
       color: Colors.white,
     )),
     colorScheme: ColorScheme.fromSwatch().copyWith(
-        primaryVariant: Color.fromRGBO(28, 28, 28, 1),
+        primaryContainer: Color.fromRGBO(28, 28, 28, 1),
         secondary: Color.fromRGBO(25, 25, 25, 1),
         brightness: Brightness.dark));
 
@@ -157,6 +157,6 @@ final lightTheme = ThemeData(
       color: Colors.white,
     )),
     colorScheme: ColorScheme.fromSwatch().copyWith(
-        primaryVariant: Color.fromRGBO(240, 240, 240, 1),
+        primaryContainer: Color.fromRGBO(240, 240, 240, 1),
         secondary: Colors.white,
         brightness: Brightness.light));

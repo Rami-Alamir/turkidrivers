@@ -92,7 +92,4 @@ class SupportContainer extends StatelessWidget {
   void _launchURL(String _url) async => await canLaunch(_url)
       ? await launch(_url)
       : throw 'Could not launch $_url';
-  formatDecimal(double value) {
-    return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 3);
-  }
 }

@@ -12,13 +12,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 class OrderDetailsContainer extends StatelessWidget {
   final Order order;
-  final double distance;
   final int status;
   final int quantity;
   final double total;
   const OrderDetailsContainer(
       {required this.order,
-      required this.distance,
       required this.quantity,
       required this.status,
       required this.total});
@@ -31,6 +29,7 @@ class OrderDetailsContainer extends StatelessWidget {
             ? order.status!
             : AppLocalizations.of(context)!
                 .tr((GetStrings().orderStatus(int.parse(order.statusId!))!));
+    final double _maxWidth = SizeConfig.screenWidth! * 0.7;
     return MainContainer(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -50,14 +49,14 @@ class OrderDetailsContainer extends StatelessWidget {
                         .headline4
                         ?.copyWith(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  // Visibility(
-                  //     visible: int.parse(order.latitude!) > 1.0,
-                  //     child: Text(
-                  //       distance < 1
-                  //           ? '${(formatDecimal(distance)).toString().substring(2)}m'
-                  //           : '${formatDecimal(distance)}km',
-                  //       style: Theme.of(context).textTheme.headline4,
-                  //     )),
+                  Visibility(
+                      visible: order.distance < 1000000.0,
+                      child: Text(
+                        order.distance < 1
+                            ? '${(formatDecimal(order.distance)).toString().substring(2)}m'
+                            : '${formatDecimal(order.distance)}km',
+                        style: Theme.of(context).textTheme.subtitle2,
+                      )),
                 ],
               ),
             ),
@@ -65,6 +64,7 @@ class OrderDetailsContainer extends StatelessWidget {
               title: 'customer_name',
               subtitle: order.customerName!,
               icon: RA7ICONS.profile,
+              maxWidth: _maxWidth,
               fontColor: Theme.of(context).textTheme.headline1?.color!,
             ),
             Visibility(
@@ -73,6 +73,7 @@ class OrderDetailsContainer extends StatelessWidget {
                   : false,
               child: OrderCardRow(
                   title: 'address',
+                  maxWidth: _maxWidth,
                   fontColor: Theme.of(context).textTheme.headline1?.color!,
                   subtitle: order.address ?? "",
                   icon: RA7ICONS.location),
@@ -85,6 +86,7 @@ class OrderDetailsContainer extends StatelessWidget {
                   child: SizedBox(
                     width: SizeConfig.screenWidth! * 0.5,
                     child: OrderCardRow(
+                        maxWidth: _maxWidth,
                         title: 'delivery_time',
                         fontColor: Theme.of(context)
                             .textTheme
@@ -100,6 +102,7 @@ class OrderDetailsContainer extends StatelessWidget {
                   ),
                 ),
                 OrderCardRow(
+                    maxWidth: _maxWidth,
                     title: 'number_of_boxes',
                     fontColor: Theme.of(context).textTheme.headline1?.color!,
                     subtitle: quantity.toString(),
@@ -114,6 +117,7 @@ class OrderDetailsContainer extends StatelessWidget {
                   child: SizedBox(
                     width: SizeConfig.screenWidth! * 0.5,
                     child: OrderCardRow(
+                        maxWidth: _maxWidth / 2.7,
                         title: 'amount_to_be_collected',
                         fontColor:
                             Theme.of(context).textTheme.headline1?.color!,
@@ -123,6 +127,7 @@ class OrderDetailsContainer extends StatelessWidget {
                   ),
                 ),
                 OrderCardRow(
+                    maxWidth: _maxWidth / 2.7,
                     title: 'order_status',
                     fontColor: GetSColorByStatus()
                         .statusColor(int.parse(order.statusId!)),
@@ -136,6 +141,7 @@ class OrderDetailsContainer extends StatelessWidget {
               visible: order.notes.toString() != "",
               child: OrderCardRow(
                 title: 'notes',
+                maxWidth: _maxWidth,
                 subtitle: order.notes.toString(),
                 icon: RA7ICONS.sticky_notes,
                 fontColor: Theme.of(context).textTheme.headline1?.color!,
@@ -173,6 +179,7 @@ class OrderDetailsContainer extends StatelessWidget {
   void _launchURL(String _url) async => await canLaunch(_url)
       ? await launch(_url)
       : throw 'Could not launch $_url';
+
   formatDecimal(double value) {
     return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 3);
   }

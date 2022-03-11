@@ -3,6 +3,8 @@ import 'package:almaraa_drivers/models/user.dart';
 import 'package:almaraa_drivers/repository/registration_repository.dart';
 import 'package:almaraa_drivers/utilities/app_localizations.dart';
 import 'package:almaraa_drivers/widget/shared/indicator_dialog.dart';
+import 'package:flutter_dropdown_alert/alert_controller.dart';
+import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth with ChangeNotifier {
@@ -35,12 +37,11 @@ class Auth with ChangeNotifier {
     if (!_loginFormKey.currentState!.validate())
       _login();
     else
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-        AppLocalizations.of(context)!
-            .tr('please_enter_all_required_information'),
-        textAlign: TextAlign.center,
-      )));
+      AlertController.show(
+          "",
+          AppLocalizations.of(context)!
+              .tr('please_enter_all_required_information'),
+          TypeAlert.error);
   }
 
   Future<void>? _login() async {
@@ -62,14 +63,14 @@ class Auth with ChangeNotifier {
           .pushNamedAndRemoveUntil("/Home", (Route<dynamic> route) => false);
     } catch (e) {
       Navigator.of(_dialogContext!).pop();
-      ScaffoldMessenger.of(context!).showSnackBar(SnackBar(
-          content: Text(
-        AppLocalizations.of(context!)!.tr('Incorrect_email_password'),
-        textAlign: TextAlign.center,
-      )));
+      AlertController.show(
+          "",
+          AppLocalizations.of(context!)!.tr('Incorrect_email_password'),
+          TypeAlert.error);
     }
   }
 
+  // show loading indicator
   void _showDialogIndicator(BuildContext context) {
     showDialog(
         context: context,

@@ -18,17 +18,17 @@ class LoginHeader extends StatelessWidget {
           ],
         ),
         Positioned.fill(
-          top: -70,
-          left: 50,
+          top: 0,
+          left: 1,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(
-                'assets/images/meat2.png',
+                'assets/images/car.png',
                 fit: BoxFit.cover,
-                width: 300,
-                height: 800,
+                width: 270,
+                height: 1000,
               ),
             ],
           ),
