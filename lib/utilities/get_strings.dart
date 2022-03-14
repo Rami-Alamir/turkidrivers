@@ -5,19 +5,19 @@ import 'package:geocoding/geocoding.dart';
 class GetStrings {
   String? deliveryTime(String time) {
     switch (time) {
-      case 'الصبح':
+      case '8':
         return 'morning_time';
-      case "الظهر":
+      case "1":
         return 'dhuhr_time';
-      case "العصر":
+      case "2":
         return 'asr_time';
-      case "المغرب":
+      case "3":
         return 'maghrib_time';
-      case "العشاء":
+      case "9":
         return 'isha_time';
-      case "الفترة الصباحية":
+      case "10":
         return 'morning_time';
-      case "الفترة المسائية":
+      case "11":
         return 'evening_time';
       default:
         return time;

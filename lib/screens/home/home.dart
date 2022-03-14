@@ -37,6 +37,8 @@ class _HomeState extends State<Home> {
     final _orders = Provider.of<OrdersProvider>(context);
     final _driverLocation =
         Provider.of<DriverLocationProvider>(context, listen: true);
+    _driverLocation.getCurrentLocation();
+
     final _auth = Provider.of<Auth>(context, listen: false);
     _driverLocation.driverId = _auth.user.data.id;
     SizeConfig().init(context);

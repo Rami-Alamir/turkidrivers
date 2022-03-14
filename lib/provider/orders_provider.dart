@@ -124,6 +124,7 @@ class OrdersProvider with ChangeNotifier {
   // re-init orders data
   Future<void> reInitOrdersData({required String userId}) async {
     _isLoading = true;
+    _retry = false;
     notifyListeners();
     await getOrdersData(context: _context, userId: userId);
   }

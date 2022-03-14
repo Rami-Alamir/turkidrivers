@@ -6,15 +6,11 @@ import 'package:geocoding/geocoding.dart';
 import 'package:location/location.dart' as Location;
 
 class DriverLocationProvider with ChangeNotifier {
-  DriverLocationProvider() {
-    print('DriverLocationProvider');
-    getCurrentLocation();
-  }
-
   late int _driverId;
   Location.LocationData? _locationData;
+  Location.Location _location = Location.Location();
   String _currentLocation = "";
-  bool updateLocation = true;
+  bool _isLoading = true;
 
   Location.LocationData? get locationData => _locationData;
   String get currentLocation => _currentLocation;
@@ -24,41 +20,41 @@ class DriverLocationProvider with ChangeNotifier {
   }
 
   // get driver location
-  void getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     print("getCurrentLocation");
-    if (_locationData == null)
-      try {
-        _locationData = await Location.Location().getLocation();
-        print("currentLocation ${_locationData.toString()}");
-      } catch (e) {
-        print(e.toString());
+    try {
+      if (_isLoading) {
+        print('dddsadas');
+        _isLoading = false;
+        _locationData = await _location.getLocation();
+        setCurrentLocationDescription();
+        updateDriverLocation();
+        Timer(Duration(seconds: 60), () {
+          _isLoading = true;
+          notifyListeners();
+        });
       }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
-    Location.Location()
-        .onLocationChanged
-        .listen((Location.LocationData currentLocation) {
-      print("onLocationChanged ${currentLocation.toString()}");
-      _locationData = currentLocation;
-    });
-
-    // try {
-    //   if (updateLocation) {
-    //     _locationData = await Location().getLocation();
-    //     updateDriverLocation();
-    //     Timer(Duration(seconds: 60), () {
-    //       updateLocation = true;
-    //       notifyListeners();
-    //     });
-    //   }
-    // } catch (e) {
-    //   print(e.toString());
-    // }
-    setCurrentLocationDescription();
+  // get driver location when changed
+  Future<void> onLocationChanged() async {
+    print('onLocationChanged');
+    // _location.changeSettings(
+    //     accuracy: Location.LocationAccuracy.high,
+    //     interval: 60000,
+    //     distanceFilter: 10);
+    // _location.onLocationChanged.listen((Location.LocationData currentLocation) {
+    //   print("onLocationChanged ${currentLocation.toString()}");
+    //   _locationData = currentLocation;
+    //   if (!_isLoading) setCurrentLocationDescription();
+    // });
   }
 
   //update location in db
   Future<void> updateDriverLocation() async {
-    updateLocation = false;
     try {
       await TrackingRepository().updateDriverLocation(
           '$_driverId',
@@ -69,11 +65,14 @@ class DriverLocationProvider with ChangeNotifier {
 
   //get current location description
   Future<void> setCurrentLocationDescription() async {
+    _isLoading = true;
     List<Placemark> placemark = await placemarkFromCoordinates(
         _locationData!.latitude!, _locationData!.longitude!,
         localeIdentifier: 'ar');
     Placemark place = placemark.first;
     _currentLocation = GetStrings().locationDescription(place);
+    _isLoading = false;
+
     notifyListeners();
   }
 }
