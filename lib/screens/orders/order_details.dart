@@ -37,8 +37,7 @@ class _OrderDetailsState extends State<OrderDetails> {
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             children: [
               OrderTimeline(
-                salesOrderId:
-                    _orders.ordersData!.data![_orders.index].salesOrderId!,
+                salesOrderId: _orders.ordersData!.data![_orders.index].tranId!,
                 status: int.parse(
                     _orders.ordersData!.data![_orders.index].statusId!),
               ),

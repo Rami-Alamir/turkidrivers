@@ -55,7 +55,7 @@ class OrderCard extends StatelessWidget {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
                         child: Text(
-                          '${order.salesOrderId}',
+                          '${order.tranId}',
                           style:
                               Theme.of(context).textTheme.headline1?.copyWith(
                                     fontSize: 16,

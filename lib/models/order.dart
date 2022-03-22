@@ -16,6 +16,7 @@ class Orders {
 class Order {
   double distance = 1000000.0;
   String? salesOrderId;
+  String? tranId;
   String? phone;
   String? phone2;
   String? customerName;
@@ -36,6 +37,7 @@ class Order {
   Order(
       {this.salesOrderId,
       this.phone,
+      this.tranId,
       this.phone2,
       this.customerName,
       this.address,
@@ -54,6 +56,7 @@ class Order {
 
   Order.fromJson(Map<String, dynamic> json) {
     salesOrderId = json['salesOrderId'];
+    tranId = json['tranid'];
     phone = json['phone'];
     phone2 = json['phone2'] ?? "";
     customerName = json['customername'] ?? "";
